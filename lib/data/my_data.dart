@@ -26,7 +26,7 @@ class ProfileData {
     {
       'label': 'CV',
       'url':
-          'https://drive.google.com/file/d/1rPZwS2fMnbkmZkdoJ0wHjRPj1kNBrL0_/view?usp=drive_link',
+          'https://drive.google.com/file/d/1ZwhGcHhg_rqyNkIZjKDGvR3yN91n7yiA/view?usp=drive_link',
       'icon': 'assets/icons/cv.png',
     },
   ];
