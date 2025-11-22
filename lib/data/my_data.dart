@@ -26,11 +26,11 @@ class ProfileData {
     {
       'label': 'CV',
       'url':
-          'https://drive.google.com/file/d/1ZwhGcHhg_rqyNkIZjKDGvR3yN91n7yiA/view?usp=drive_link',
+          'https://drive.google.com/file/d/17uSeoL7JFBHjmVx628IUJiK9vxGbtO4x/view?usp=drive_link',
       'icon': 'assets/icons/cv.png',
     },
   ];
-
+  //https://drive.google.com/file/d/17uSeoL7JFBHjmVx628IUJiK9vxGbtO4x/view?usp=drive_link
   static const skills = [
     'Flutter',
     'Dart',
