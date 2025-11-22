@@ -60,6 +60,17 @@ class ProfileData {
 
   static const experience = [
     {
+      'role': 'Application Support',
+      'company': 'MNT-Halan',
+      'type': 'Full-Time',
+      'place': 'Egypt',
+      'period': 'Oct 2025 – Present',
+      'bullets': [
+        'Providing technical support for Halan mobile application',
+        'Troubleshooting and resolving user issues',
+      ],
+    },
+    {
       'role': 'Flutter Developer',
       'company': 'Bayan Digital',
       'type': 'Full-Time',
