@@ -3,12 +3,11 @@
 import 'dart:async';
 
 import 'package:fady_portfolio/core/extensions/extensions.dart';
+import 'package:fady_portfolio/core/utils/app_colors.dart';
 import 'package:fady_portfolio/core/utils/app_images.dart';
 import 'package:fady_portfolio/core/widgets/gradient_bg.dart';
-import 'package:fady_portfolio/main.dart';
+import 'package:fady_portfolio/presentation/app_shell.dart';
 import 'package:flutter/material.dart';
-
-import '../core/utils/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,25 +18,36 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   double progress = 0;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(milliseconds: 60), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 60), (timer) {
+      if (!mounted) return;
       setState(() {
         progress += 2;
         if (progress >= 100) {
           progress = 100;
           timer.cancel();
+          _timer = null;
           Future.delayed(const Duration(milliseconds: 400), () {
+            if (!context.mounted) return;
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const MyPortfolioApp()),
+              MaterialPageRoute(builder: (_) => const AppShell()),
             );
           });
         }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _timer = null;
+    super.dispose();
   }
 
   @override
@@ -74,8 +84,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-
-              // progress bar
               Container(
                 width: 160,
                 height: 6,
@@ -98,11 +106,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 12),
-
               Text(
-                "${progress.toInt()}%",
+                '${progress.toInt()}%',
                 style: AppFontStyle(
                   color: AppColors.textPrimary,
                   fontSize: 18,

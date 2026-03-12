@@ -1,0 +1,40 @@
+---
+description: Flutter architecture and coding standards
+globs:
+  - lib/**/*.dart
+alwaysApply: true
+---
+
+You are a senior Flutter engineer working on this project.
+
+Architecture rules:
+- Use clean architecture
+- Separate layers into presentation, domain, and data
+- Use repository pattern
+- Follow SOLID principles
+
+Flutter rules:
+- Prefer stateless widgets
+- Extract reusable widgets
+- Keep widgets small and readable
+- Follow Dart and Flutter best practices
+
+Project structure:
+lib/
+  core/
+  data/
+  domain/
+  presentation/
+
+Code quality:
+- Use null safety
+- Avoid duplicated logic
+- Use meaningful naming
+- Keep files modular
+
+When implementing features:
+1. Analyze the existing project structure
+2. Follow the architecture already used
+3. Create necessary models and repositories
+4. Implement UI with reusable widgets
+5. Keep code clean and maintainable

@@ -3,28 +3,21 @@ import 'dart:ui';
 import 'package:fady_portfolio/core/extensions/extensions.dart';
 import 'package:fady_portfolio/core/utils/app_colors.dart';
 import 'package:fady_portfolio/core/utils/app_images.dart';
+import 'package:fady_portfolio/core/utils/url_launcher_helper.dart';
+import 'package:fady_portfolio/data/repositories/profile_repository_impl.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../data/my_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  Future<void> _open(String url) async {
-    final u = Uri.parse(url);
-    if (await canLaunchUrl(u)) {
-      await launchUrl(u, mode: LaunchMode.externalApplication);
-    }
-  }
-
   String _getSocialUrl(String label) {
-    return ProfileData.socials.firstWhere((s) => s['label'] == label)['url']!;
+    final profile = ProfileRepositoryImpl.profileRepository.getProfile();
+    return profile.socials.firstWhere((s) => s.label == label).url;
   }
 
   @override
   Widget build(BuildContext context) {
-    Theme.of(context);
+    final profile = ProfileRepositoryImpl.profileRepository.getProfile();
     return LayoutBuilder(
       builder: (context, c) {
         final wide = c.maxWidth >= 900;
@@ -58,7 +51,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              ProfileData.name,
+              profile.name,
               style: AppFontStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
@@ -67,12 +60,12 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              ProfileData.title,
+              profile.title,
               style: AppFontStyle(color: AppColors.accent, fontSize: 20),
             ),
             const SizedBox(height: 10),
             Text(
-              ProfileData.summary,
+              profile.summary,
               style: AppFontStyle(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 18),
@@ -85,7 +78,7 @@ class HomePage extends StatelessWidget {
                     backgroundColor: AppColors.primary.withOpacity(0.8),
                     foregroundColor: AppColors.textPrimary,
                   ),
-                  onPressed: () => _open(_getSocialUrl('LinkedIn')),
+                  onPressed: () => launchExternalUrl(_getSocialUrl('LinkedIn')),
                   icon: Image.asset(AppImages.linkedin, width: 25),
                   label: Text(
                     'LinkedIn',
@@ -97,7 +90,7 @@ class HomePage extends StatelessWidget {
                     backgroundColor: AppColors.background.withOpacity(0.7),
                     foregroundColor: AppColors.textPrimary,
                   ),
-                  onPressed: () => _open(_getSocialUrl('GitHub')),
+                  onPressed: () => launchExternalUrl(_getSocialUrl('GitHub')),
                   icon: Image.asset(AppImages.github, width: 25),
                   label: Text(
                     'GitHub',
@@ -109,7 +102,7 @@ class HomePage extends StatelessWidget {
                     backgroundColor: AppColors.secondary.withOpacity(0.8),
                     foregroundColor: AppColors.textPrimary,
                   ),
-                  onPressed: () => _open(_getSocialUrl('CV')),
+                  onPressed: () => launchExternalUrl(_getSocialUrl('CV')),
                   icon: Image.asset(AppImages.cv, width: 25),
                   label: Text(
                     'CV',
@@ -131,7 +124,7 @@ class HomePage extends StatelessWidget {
             Wrap(
               spacing: 10,
               runSpacing: 10,
-              children: ProfileData.skills
+              children: profile.skills
                   .map(
                     (s) => ClipRRect(
                       borderRadius: BorderRadius.circular(12),
@@ -188,7 +181,11 @@ class HomePage extends StatelessWidget {
                     )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [right, const SizedBox(height: 20), left],
+                      children: [
+                        right,
+                        const SizedBox(height: 20),
+                        left,
+                      ],
                     ),
             ),
           ),
